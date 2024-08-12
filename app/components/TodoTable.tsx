@@ -29,7 +29,7 @@ export default function TodoTable({ todos, onDelete, onEdit }: TodoTableProps) {
           </tr>
         </thead>
         <tbody>
-          {todos.map((todo, index) => (
+          {todos && todos.map((todo, index) => (
             <tr
               key={index}
               className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
