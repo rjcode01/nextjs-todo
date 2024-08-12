@@ -49,7 +49,7 @@ export default function TodoModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none mx-2">
       <div className="relative w-full max-w-3xl mx-auto">
         <div className="relative flex flex-col w-full bg-gray-600 rounded-lg shadow-lg outline-none focus:outline-none">
           <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
@@ -111,7 +111,7 @@ export default function TodoModal({
               type="button"
               onClick={handleSave}
             >
-              Save Changes
+              Save
             </button>
           </div>
         </div>

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import TodoTable from "./components/TodoTable";
 import TodoModal from "./components/TodoModal";
 import axios from "axios";
+import Loader from "./components/Loader";
 
 export interface Todo {
   id?: number;
@@ -15,6 +16,7 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingTodo, setEditingTodo] = useState<Todo | undefined>();
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchTodos();
@@ -27,6 +29,8 @@ export default function Home() {
       setTodos(response.data.data);
     } catch (error) {
       console.error("Error fetching todos:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -38,6 +42,7 @@ export default function Home() {
 
   // Saves the todo (add or update)
   const handleSave = async (todo: Todo) => {
+    setLoading(true);
     try {
       if (todo.id) {
         await axios.put(`/api/todos/${todo.id}`, todo);
@@ -53,6 +58,7 @@ export default function Home() {
 
   // Deletes a todo
   const handleDelete = async (id?: number) => {
+    setLoading(true);
     try {
       await axios.delete(`/api/todos/${id}`);
       fetchTodos();
@@ -61,10 +67,13 @@ export default function Home() {
     }
   };
 
+  if (loading) {
+    return <Loader />;
+  }
   return (
-    <div className="mx-20">
-      <div className="mt-5">
-        <h1 className="text-3xl text-center">Todo App Next.js</h1>
+    <div className="lg:mx-20 sm:mx-5 mx-2">
+      <div>
+        <h1 className="my-8 text-3xl text-center">Todo Next.js</h1>
         <button
           type="button"
           onClick={() => handleAddOrEditClick()}
